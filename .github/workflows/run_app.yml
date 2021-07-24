@@ -25,5 +25,6 @@ jobs:
           host: ${{ secrets.HOSTLAND_HOST }}
           username: ${{ secrets.HOSTLAND_USER }}
           key: ${{ secrets.HOSTLAND_KEY }}
+          port: ${{ secrets.HOSTLAND_PORT }}
           source: "app"
           target: "${{ secrets.HOSTLAND_TEST_DIR }}"

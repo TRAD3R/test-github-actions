@@ -16,4 +16,14 @@ jobs:
           go-version: 1.16
 
       - name: Build
-        run: go build -v ./...
+        run: go build -o app main.go
+
+      # Copying files and artifacts via SSH
+      - name: Copying files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOSTLAND_HOST }}
+          username: ${{ secrets.HOSTLAND_USER }}
+          key: ${{ secrets.HOSTLAND_KEY }}
+          source: "app"
+          target: "${{ secrets.HOSTLAND_TEST_DIR }}"

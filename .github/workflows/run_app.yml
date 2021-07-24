@@ -39,6 +39,6 @@ jobs:
           port: ${{ secrets.HOSTLAND_PORT }}
           script:
             kill -9 $(pgrep app | awk '{print $1}') &&
-            github_actions_test &&
+            cd ~/trad3r.ru/htdocs/github_actions_test &&
             mv -f app_new app &&
             ./app

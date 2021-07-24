@@ -28,6 +28,15 @@ jobs:
           port: ${{ secrets.HOSTLAND_PORT }}
           source: "app_new"
           target: "${{ secrets.HOSTLAND_TEST_DIR }}"
+
+      # Rerun app on server
+      - name: Rerun on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOSTLAND_HOST }}
+          username: ${{ secrets.HOSTLAND_USER }}
+          key: ${{ secrets.HOSTLAND_KEY }}
+          port: ${{ secrets.HOSTLAND_PORT }}
           script:
             kill -9 $(pgrep app | awk '{print $1}') &&
             cd ${{ secrets.HOSTLAND_TEST_DIR }} &&

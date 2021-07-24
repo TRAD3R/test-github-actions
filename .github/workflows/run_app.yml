@@ -16,7 +16,7 @@ jobs:
           go-version: 1.16
 
       - name: Build
-        run: go build -o app main.go
+        run: go build -o app_new main.go
 
       # Copying files and artifacts via SSH
       - name: Copying files to server
@@ -26,5 +26,10 @@ jobs:
           username: ${{ secrets.HOSTLAND_USER }}
           key: ${{ secrets.HOSTLAND_KEY }}
           port: ${{ secrets.HOSTLAND_PORT }}
-          source: "app"
+          source: "app_new"
           target: "${{ secrets.HOSTLAND_TEST_DIR }}"
+          script:
+            kill -9 $(pgrep app | awk '{print $1}') &&
+            cd ${{ secrets.HOSTLAND_TEST_DIR }} &&
+            mv -f app_new app &&
+            ./app
